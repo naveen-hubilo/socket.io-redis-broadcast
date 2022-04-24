@@ -89,16 +89,23 @@ class RedisAdapter extends socket_io_adapter_1.Adapter {
         }
         const args = msgpack.decode(msg);
         const [uid, packet, opts] = args;
-        if (this.uid === uid)
+        // console.log("Naveen 92 - uid - packet - opts - ", JSON.stringify([uid, packet, opts]));
+        if (this.uid === uid){
+            // console.log("Naveen 94- uid - packet - opts - ", JSON.stringify([uid, packet, opts]));
             return debug("ignore same uid");
+        }
         if (packet && packet.nsp === undefined) {
+            // console.log("Naveen 98 - uid - packet - opts - ", JSON.stringify([uid, packet, opts]));
             packet.nsp = "/";
         }
         if (!packet || packet.nsp !== this.nsp.name) {
+            // console.log("Naveen 102 - packet.nsp - this.nsp.name - ", JSON.stringify([packet, packet.nsp , this.nsp.name]));
             return debug("ignore different namespace");
         }
         opts.rooms = new Set(opts.rooms);
         opts.except = new Set(opts.except);
+
+        console.log("Naveen 108 - uid - packet - opts - ", JSON.stringify([uid, packet, opts]));
         super.broadcast(packet, opts);
     }
     /**
