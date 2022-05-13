@@ -1,4 +1,4 @@
-import { Adapter, BroadcastOptions, Room, SocketId } from "socket.io-adapter";
+import { Adapter, BroadcastOptions, Room, SocketId } from "socket.io-adapter-broadcast";
 export interface RedisAdapterOptions {
     /**
      * the name of the key to pub/sub events on as prefix
@@ -18,6 +18,8 @@ export interface RedisAdapterOptions {
      * @default 5000
      */
     requestsTimeout: number;
+
+    isRoomBroadcastMsgBatchingAllowedCheckFunc: fn;
 }
 /**
  * Returns a redis Adapter class.

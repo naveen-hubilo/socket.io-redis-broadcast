@@ -5,7 +5,7 @@ const uid2 = require("uid2");
 const redis_1 = require("redis");
 const msgpack = require("notepack.io");
 const socket_io_adapter_1 = require("socket.io-adapter-broadcast");
-const debug = require("debug")("socket.io-redis");
+const debug = require("debug")("socket.io-redis-broadcast");
 module.exports = exports = createAdapter;
 /**
  * Request types, for messages between nodes
@@ -50,7 +50,7 @@ class RedisAdapter extends socket_io_adapter_1.Adapter {
      * @public
      */
     constructor(nsp, uri, opts = {}) {
-        super(nsp);
+        super(nsp, opts.isRoomBroadcastMsgBatchingAllowedCheckFunc);
         this.requests = new Map();
         this.uid = uid2(6);
         this.pubClient = opts.pubClient || createRedisClient(uri, opts);
@@ -89,23 +89,19 @@ class RedisAdapter extends socket_io_adapter_1.Adapter {
         }
         const args = msgpack.decode(msg);
         const [uid, packet, opts] = args;
-        // console.log("Naveen 92 - uid - packet - opts - ", JSON.stringify([uid, packet, opts]));
+
         if (this.uid === uid){
-            // console.log("Naveen 94- uid - packet - opts - ", JSON.stringify([uid, packet, opts]));
             return debug("ignore same uid");
         }
         if (packet && packet.nsp === undefined) {
-            // console.log("Naveen 98 - uid - packet - opts - ", JSON.stringify([uid, packet, opts]));
             packet.nsp = "/";
         }
         if (!packet || packet.nsp !== this.nsp.name) {
-            // console.log("Naveen 102 - packet.nsp - this.nsp.name - ", JSON.stringify([packet, packet.nsp , this.nsp.name]));
             return debug("ignore different namespace");
         }
         opts.rooms = new Set(opts.rooms);
         opts.except = new Set(opts.except);
 
-        console.log("Naveen 108 - uid - packet - opts - ", JSON.stringify([uid, packet, opts]));
         super.broadcast(packet, opts);
     }
     /**
