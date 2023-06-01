@@ -45,13 +45,13 @@
   "files": [
     "dist/"
   ],
-  "homepage": "https://github.com/naveen-hubilo/socket.io-redis-broadcast#readme",
+  "homepage": "https://github.com/avay-hubilo/socket.io-redis-broadcast#readme",
   "license": "MIT",
   "main": "./dist/index.js",
   "name": "socket.io-redis-broadcast",
   "repository": {
     "type": "git",
-    "url": "git@github.com:naveen-hubilo/socket.io-redis-broadcast.git"
+    "url": "git@github.com:avay-hubilo/socket.io-redis-broadcast.git"
   },
   "scripts": {
     "format:check": "prettier --parser typescript --check 'lib/**/*.ts' 'test/**/*.ts'",
@@ -60,5 +60,5 @@
     "test": "npm run format:check && tsc && nyc mocha --require ts-node/register test/index.ts"
   },
   "types": "./dist/index.d.ts",
-  "version": "6.1.7"
+  "version": "6.1.8"
 }
