@@ -20,6 +20,8 @@ export interface RedisAdapterOptions {
     requestsTimeout: number;
 
     isRoomBroadcastMsgBatchingAllowedCheckFunc: fn;
+
+    excludeBatchMap: Map<string, Set<string>>;
 }
 /**
  * Returns a redis Adapter class.

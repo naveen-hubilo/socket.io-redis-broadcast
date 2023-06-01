@@ -50,7 +50,7 @@ class RedisAdapter extends socket_io_adapter_1.Adapter {
      * @public
      */
     constructor(nsp, uri, opts = {}) {
-        super(nsp, opts.isRoomBroadcastMsgBatchingAllowedCheckFunc);
+        super(nsp, opts.isRoomBroadcastMsgBatchingAllowedCheckFunc, opts.excludeBatchMap);
         this.requests = new Map();
         this.uid = uid2(6);
         this.pubClient = opts.pubClient || createRedisClient(uri, opts);
