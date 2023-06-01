@@ -60,5 +60,5 @@
     "test": "npm run format:check && tsc && nyc mocha --require ts-node/register test/index.ts"
   },
   "types": "./dist/index.d.ts",
-  "version": "6.1.8"
+  "version": "6.1.9"
 }
